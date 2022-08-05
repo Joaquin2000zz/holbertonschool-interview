@@ -15,11 +15,13 @@ def canUnlockAll(boxes):
     You can assume all keys will be positive integers
     There can be keys that do not have boxes
     The first box boxes[0] is unlocked
-    Return True if all boxes can be opened, else return False 
+    Return True if all boxes can be opened, else return False
     """
     i = 0
     keys = []
     length = 0
+    if len(boxes) == 1:
+        return True
     for box in boxes:
         if box:
             length += 1
