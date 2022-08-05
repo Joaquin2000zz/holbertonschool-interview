@@ -22,6 +22,9 @@ def canUnlockAll(boxes):
     length = 0
     if not boxes or len(boxes) == 1:
         return True
+    if len(boxes) == 2:
+        if boxes[0] == boxes[1]:
+            return True
     for box in boxes:
         if box:
             length += 1
