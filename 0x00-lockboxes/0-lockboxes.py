@@ -23,7 +23,7 @@ def canUnlockAll(boxes):
     if not boxes or len(boxes) == 1:
         return True
     if len(boxes) == 2:
-        if boxes[0] == boxes[1]:
+        if sorted(boxes[0]) == sorted(boxes[1]):
             return True
     for box in boxes:
         if box:
