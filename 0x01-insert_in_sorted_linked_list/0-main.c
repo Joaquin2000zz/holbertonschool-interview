@@ -13,7 +13,6 @@ int main(void)
     listint_t *head;
 
     head = NULL;
-    add_nodeint_end(&head, 4);
     print_listint(head);
 
     printf("-----------------\n");
