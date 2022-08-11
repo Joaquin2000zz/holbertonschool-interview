@@ -36,19 +36,13 @@ listint_t *insert_node(listint_t **head, int number)
 	}
 	while (aux->next)
 	{
-		if (aux->n > number)
+		if (aux->n >= number)
 			break;
 		prev = aux, aux = aux->next;
 	}
-	if (aux->next->n < number)
+	if (aux->next->n <= number)
 	{
 		aux->next->next = new;
-		return (new);
-	}
-	if (aux->n == number)
-	{
-		free(aux);
-		prev->next = new;
 		return (new);
 	}
 	prev->next = new;
