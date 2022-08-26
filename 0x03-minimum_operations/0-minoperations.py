@@ -16,7 +16,7 @@ def minOperations(n):
     if not isinstance(n, int) or n < 2:
         return 0
 
-    File = "H"
+    File = 1
     copy = None
     On = 0
     
@@ -34,10 +34,9 @@ def minOperations(n):
             On += 2
         else:
             File += copy
-            flag = 0 if len((File + 'H') * 2) > n else 1
+            flag = 0 if ((File + 1) * 2) > n else 1
             On += 1
-        l = len(File)
-        if l > n:
+        if File > n:
             return 0
-        if l == n:
+        if File == n:
             return On
