@@ -21,7 +21,7 @@ def minOperations(n):
     
     flag = 1
 
-    while (1):
+    while 1:
         i += 2 if flag else 1
 
         if flag:
