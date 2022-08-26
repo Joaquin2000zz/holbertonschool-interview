@@ -35,8 +35,6 @@ def minOperations(n):
             On += 1
         l = len(File)
         if l > n:
-            print(File)
             return 0
         if l == n:
-            print(File)
             return On
