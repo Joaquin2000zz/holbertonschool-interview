@@ -13,6 +13,9 @@ def minOperations(n):
     If n is impossible to achieve, return 0
     """
 
+    if not isinstance(n, int) or n < 2:
+        return 0
+
     File = "H"
     copy = None
     On = 0
