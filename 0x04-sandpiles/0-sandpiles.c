@@ -7,18 +7,18 @@
  */
 static void print(int grid[3][3])
 {
-    int i, j;
+	int i, j;
 
-    for (i = 0; i < 3; i++)
-    {
-        for (j = 0; j < 3; j++)
-        {
-            if (j)
-                printf(" ");
-            printf("%d", grid[i][j]);
-        }
-        printf("\n");
-    }
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 3; j++)
+		{
+			if (j)
+				printf(" ");
+			printf("%d", grid[i][j]);
+		}
+		printf("\n");
+	}
 }
 
 /**
@@ -47,12 +47,14 @@ int check(int grid[3][3])
 
 /**
  * fix - reduce the sandpile
- * @grid: 3x3 grid
+ * @grid1: 3x3 grid
+ * @grid2: 3x3 grid
  *
  */
 void fix(int grid1[3][3], int grid2[3][3])
 {
 	int i, j;
+
 	for (i = 0; i < 3; i++)
 	{
 		for (j = 0; j < 3; j++)
@@ -89,7 +91,7 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 		{
 			grid1[i][j] += grid2[i][j];
 			grid2[i][j] = 0;
-		}	
+		}
 	}
 	if (check(grid1))
 		fix(grid1, grid2);
