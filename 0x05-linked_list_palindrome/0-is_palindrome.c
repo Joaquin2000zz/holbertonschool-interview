@@ -7,7 +7,7 @@
 int is_palindrome(listint_t **head)
 {
     listint_t *aux;
-    int n = 0, i, j, radius, buffer[99999];
+    int n = 0, i, j, radius, buffer[999999];
 
     if (!head || !(*head))
         return (0);
@@ -18,18 +18,14 @@ int is_palindrome(listint_t **head)
 
     radius = n / 2;
     if (n % 2 == 0)
-    {
         i = radius - 1, j = radius;
-    }
     else
         i = radius, j = radius;
 
     while (i > -1 && j < n)
     {
         if (buffer[i] != buffer[j])
-        {
             return (0);
-        }
         buffer[i] = 0, buffer[j] = 0;
         i--, j++;
     }
