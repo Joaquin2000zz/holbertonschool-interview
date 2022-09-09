@@ -7,7 +7,7 @@
 int is_palindrome(listint_t **head)
 {
     listint_t *aux;
-    int n = 0, i, j, radius, buffer[1024];
+    int n = 0, i, j, radius, buffer[9999];
 
     if (!head || !(*head))
         return (0);
