@@ -24,13 +24,14 @@ try:
     buffer = {}
     size = 0
     for i, line in enumerate(sys.stdin):
+        print(line)
         code, sizeS = line.split('"')[2][1:].split(' ')
         size += int(sizeS)
         if not buffer.get(code):
             buffer[code] = 1
         else:
             buffer[code] += 1
-        if i % 10 == 0:
+        if (i + 1) % 10 == 0:
             print("File size: ", size)
             for k in sorted(buffer.keys()):
                 to_print = k + " " + str(buffer[k])
