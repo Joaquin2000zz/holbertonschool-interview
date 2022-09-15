@@ -43,7 +43,6 @@ try:
             for k in sorted(buffer.keys()):
                 to_print = k + ": " + str(buffer[k])
                 print(to_print)
-            buffer = {}
             flag = False
     if flag:
         print("File size:", size)
