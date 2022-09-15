@@ -34,11 +34,11 @@ try:
         if (i + 1) % 10 == 0:
             print("File size: ", size)
             for k in sorted(buffer.keys()):
-                to_print = k + " " + str(buffer[k])
+                to_print = k + ": " + str(buffer[k])
                 print(to_print)
             buffer = {}
 except KeyboardInterrupt:
     print("File size: ", size)
     for k in sorted(buffer.keys()):
-        to_print = k + " " + str(buffer[k])
+        to_print = k + ": " + str(buffer[k])
         print(to_print)
