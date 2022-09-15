@@ -24,7 +24,6 @@ try:
     buffer = {}
     size = 0
     for i, line in enumerate(sys.stdin):
-        print(line)
         code, sizeS = line.split('"')[2][1:].split(' ')
         size += int(sizeS)
         if not buffer.get(code):
