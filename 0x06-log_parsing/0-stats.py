@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-module which contains a script that reads stdin line by line and computes metrics
+module which contains a script that reads stdin line by
+line and computes metrics
 
 * Input format: <IP Address> - [<date>] "GET /projects/260 HTTP/1.1"
   <status code> <file size> (if the format is not this one,
@@ -36,7 +37,7 @@ try:
                 print(to_print)
             buffer = {}
 except KeyboardInterrupt:
-    print("File size: ",size)
+    print("File size: ", size)
     for k in sorted(buffer.keys()):
         to_print = k + " " + str(buffer[k])
         print(to_print)
