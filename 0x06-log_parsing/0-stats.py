@@ -21,11 +21,13 @@ import sys
 
 
 try:
+    flag = False
     buffer = {}
     size = 0
     for i, line in enumerate(sys.stdin):
         code, sizeS = line.split('"')[2][1:].split(' ')
         if code.isnumeric():
+            flag = True
             size += int(sizeS)
             if not buffer.get(code):
                 buffer[code] = 1
@@ -37,6 +39,13 @@ try:
                 to_print = k + ": " + str(buffer[k])
                 print(to_print)
             buffer = {}
+            flag = False
+    if flag:
+        print("File size: ", size)
+        for k in sorted(buffer.keys()):
+            to_print = k + ": " + str(buffer[k])
+            print(to_print)
+
 except KeyboardInterrupt:
     print("File size: ", size)
     for k in sorted(buffer.keys()):
