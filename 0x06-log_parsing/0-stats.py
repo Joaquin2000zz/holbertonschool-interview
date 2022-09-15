@@ -30,13 +30,13 @@ try:
         else:
             buffer[code] += 1
         if i % 10 == 0:
-            print("File size: {}".format(size))
+            print("File size: ", size)
             for k in sorted(buffer.keys()):
                 to_print = k + " " + str(buffer[k])
                 print(to_print)
             buffer = {}
 except KeyboardInterrupt:
-    print("File size: {}".format(size))
+    print("File size: ",size)
     for k in sorted(buffer.keys()):
         to_print = k + " " + str(buffer[k])
         print(to_print)
