@@ -9,24 +9,18 @@
 int check_cycle(listint_t *list)
 {
     listint_t *one, *two;
-    int flag = 0;
 
     if (!list)
         return (1);
 
     one = list, two = list;
 
-    while (one && two)
+    while (one->next && two->next->next)
     {
-        if (one == two && flag)
-            return (1);
-        flag = 1;
         one = one->next;
-        if (two->next)
-            two = two->next->next;
-        else
-            break;
-
+        two = two->next->next;
+        if (one == two)
+            return (1);
     }
     return (0);
 }
