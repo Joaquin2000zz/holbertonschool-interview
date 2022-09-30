@@ -1,9 +1,11 @@
 #include "sandpiles.h"
+
 /**
- * printing_grid - prints a grid
- * @grid: grid to be printed
+ * print - Print 3x3 grid
+ * @grid: 3x3 grid
+ *
  */
-void printing_grid(int grid[3][3])
+static void print(int grid[3][3])
 {
 	int i, j;
 
@@ -20,11 +22,66 @@ void printing_grid(int grid[3][3])
 }
 
 /**
- * sum_piles - function that agregates cell by cell two grids
- * @grid1: grid one
- * @grid2: grid two
+ * check - check if is neccessary keep reducing the sandpile
+ * @grid: 3x3 grid
+ * Return: 1 if yes, otherwise, 0
  */
-static void sum_piles(int grid1[3][3], int grid2[3][3])
+int check(int grid[3][3])
+{
+	int i, j;
+
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 3; j++)
+		{
+			if (grid[i][j] > 3)
+			{
+				printf("=\n");
+				print(grid);
+				return (1);
+			}
+		}
+	}
+	return (0);
+}
+
+/**
+ * fix - reduce the sandpile
+ * @grid1: 3x3 grid
+ * @grid2: 3x3 grid
+ *
+ */
+void fix(int grid1[3][3], int grid2[3][3])
+{
+	int i, j;
+
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 3; j++)
+		{
+			if (grid1[i][j] > 3)
+			{
+				grid1[i][j] -= 4;
+				if (i > 0)
+					grid2[i - 1][j] += 1;
+				if (i < 2)
+					grid2[i + 1][j] += 1;
+				if (j > 0)
+					grid2[i][j - 1] += 1;
+				if (j < 2)
+					grid2[i][j + 1] += 1;
+			}
+		}
+	}
+	sandpiles_sum(grid1, grid2);
+}
+
+/**
+ * sandpiles_sum - adds 2 sandpiles
+ * @grid1: 3x3 grid
+ * @grid2: 3x3 grid
+ */
+void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 {
 	int i, j;
 
@@ -36,70 +93,6 @@ static void sum_piles(int grid1[3][3], int grid2[3][3])
 			grid2[i][j] = 0;
 		}
 	}
-}
-
-/**
- * grid_stable - function that determines if a grid is stable
- * @grid1: grid one
- * Return: True if unstable, other wise, false
- */
-static bool grid_stable(int grid1[3][3])
-{
-	int i, j;
-
-	for (i = 0; i < 3; i++)
-	{
-		for (j = 0; j < 3; j++)
-		{
-			if (grid1[i][j] > 3)
-				return (true);
-		}
-	}
-	return (false);
-}
-
-/**
- * disperse - function that disperse a grid if cell value above 3
- * @grid1: grid one
- * @grid2: grid two
- */
-static void disperse(int grid1[3][3], int grid2[3][3])
-{
-	int i, j;
-
-	for (i = 0; i < 3; i++)
-	{
-		for (j = 0; j < 3; j++)
-		{
-			if (grid1[i][j] > 3)
-			{
-				if (i > 0)
-					grid2[i - 1][j] += 1;
-				if (j > 0)
-					grid2[i][j - 1] += 1;
-				if (i < 2)
-					grid2[i + 1][j] += 1;
-				if (j < 2)
-					grid2[i][j + 1] += 1;
-				grid1[i][j] -= 4;
-			}
-		}
-	}
-	sum_piles(grid1, grid2);
-}
-
-/**
- * sandpiles_sum - function that sums two sand piles
- * @grid1: grid one
- * @grid2: grid two
- */
-void sandpiles_sum(int grid1[3][3], int grid2[3][3])
-{
-	sum_piles(grid1, grid2);
-	while (grid_stable(grid1))
-	{
-		printf("=\n");
-		printing_grid(grid1);
-		disperse(grid1, grid2);
-	}
+	if (check(grid1))
+		fix(grid1, grid2);
 }
