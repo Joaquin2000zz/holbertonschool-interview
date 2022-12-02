@@ -12,7 +12,8 @@ def rain(walls):
 
     - walls is a list of non-negative integers.
     Return: Integer indicating total amount of rainwater retained.
-    - Assume that the ends of the list (before index 0 and after index walls[-1])
+    - Assume that the ends of the list (before index 0 and
+      after index walls[-1])
       are not walls, meaning they will not retain water.
     - If the list is empty return 0.
     """
@@ -30,6 +31,8 @@ def rain(walls):
             haswall.append(wall)
             wallpos.append(i)
             n += 1
+    if n == 1:
+        return 1
 
     distances = []
     heights = []
