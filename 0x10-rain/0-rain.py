@@ -31,8 +31,6 @@ def rain(walls):
             haswall.append(wall)
             wallpos.append(i)
             n += 1
-    if n == 1 and i + 1 == 1:
-        return 1
 
     distances = []
     heights = []
