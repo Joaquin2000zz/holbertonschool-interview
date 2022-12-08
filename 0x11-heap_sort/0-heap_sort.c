@@ -66,8 +66,8 @@ void heap_sort(int *array, size_t size)
 	{
 		swap(&array[0], &array[i]);
 
+		print_array(array, size);
 		/*Heapify root element to get highest element at root again*/
 		heapify(array, i, 0, size);
-		print_array(array, size);
 	}
 }
