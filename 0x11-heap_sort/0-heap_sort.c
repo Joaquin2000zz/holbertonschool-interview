@@ -48,6 +48,15 @@ void heapify(int *array, size_t slice, size_t i, size_t size)
 void heap_sort(int *array, size_t size)
 {
 	int i = 0;
+
+	if (!array)
+		return;
+
+	if (size == 1)
+	{
+		print_array(array, size);
+		return;
+	}
 	/* Build max heap */
 	for (i = (int)size / 2 - 1; i >= 0; i--)
 		heapify(array, size, i, size);
