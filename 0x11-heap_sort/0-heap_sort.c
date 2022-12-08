@@ -47,12 +47,13 @@ void heapify(int *array, size_t slice, size_t i, size_t size)
  */
 void heap_sort(int *array, size_t size)
 {
+	int i = 0;
 	/* Build max heap */
-	for (int i = size / 2 - 1; i >= 0; i--)
+	for (i = (int)size / 2 - 1; i >= 0; i--)
 		heapify(array, size, i, size);
 
 	/* Heap sort*/
-	for (int i = size - 1; i >= 0; i--)
+	for (i = (int)size - 1; i >= 0; i--)
 	{
 		swap(&array[0], &array[i]);
 
