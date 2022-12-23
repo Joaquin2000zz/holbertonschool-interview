@@ -5,6 +5,7 @@ module which contains count_words function
 import requests
 import sys
 
+
 def count_words(subreddit, word_list, next=None, result=None):
     """
     recursive function that queries the Reddit API, parses the title of all
@@ -15,9 +16,14 @@ def count_words(subreddit, word_list, next=None, result=None):
 
     url = 'https://www.reddit.com/r/' + subreddit + '/hot.json'
     if not next and not result:
-        r = requests.get(url,
-                         headers={'User-agent': 'your bot 0.1'},
-                         allow_redirects=False)
+        try:
+            r = requests.get(url,
+                             headers={'User-agent': 'your bot 0.1'},
+                             allow_redirects=False)
+            if not r.status_code == 200:
+                return None
+        except Exception:
+            return
         result = {word: 0 for word in word_list}
         sys.setrecursionlimit(1500)
     else:
@@ -25,7 +31,11 @@ def count_words(subreddit, word_list, next=None, result=None):
         r = requests.get(url,
                          headers={'User-agent': 'your bot 0.1'},
                          allow_redirects=False)
-    r = r.json().get('data')
+    try:
+        r = r.json().get('data')
+    except Exception:
+        return None
+
     next = r.get('after')
     hot = r.get('children')
 
