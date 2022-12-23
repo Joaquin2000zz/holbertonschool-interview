@@ -48,10 +48,7 @@ def count_words(subreddit, word_list, next=None, result=None):
             else:
                 new_res[num].append(key)
 
-        result = {}
         for key in new_res:
             for name in new_res.get(key):
                 print(name + ':', key)
                 result[name] = key
-
-    return result
