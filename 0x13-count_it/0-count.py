@@ -69,6 +69,8 @@ def count_words(subreddit, word_list, next=None, result=None):
         num_keys = num_keys[::-1]
 
         for key in num_keys:
+            if key == 0:
+                continue
             names = new_res.get(key)
             for name in names:
                 print(name + ':', key)
