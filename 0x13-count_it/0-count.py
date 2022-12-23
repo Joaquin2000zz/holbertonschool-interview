@@ -16,27 +16,23 @@ def count_words(subreddit, word_list, next=None, result=None):
     url = 'https://www.reddit.com/r/' + subreddit + '/hot.json'
     if not next:
         r = requests.get(url,
-                         headers={'User-agent': 'your bot 0.1'})
-        result = {}
+                         headers={'User-agent': 'your bot 0.1'},
+                         allow_redirects=False)
+        result = {word: 0 for word in word_list}
     else:
         url += '?after=' + next
         r = requests.get(url,
-                         headers={'User-agent': 'your bot 0.1'})
+                         headers={'User-agent': 'your bot 0.1'},
+                         allow_redirects=False)
     r = r.json().get('data')
     next = r.get('after')
     hot = r.get('children')
 
     for data in hot:
-        for word in word_list:
-            word = word.lower()
-            if word in data.get('data').get('title').lower():
-                if not result.get(word):
-                    result[word] = 1
-                else:
-                    result[word] += 1
-            else:
-                if not result.get(word):
-                    result[word] = 0
+        title_words = data.get('data').get('title').lower().split()
+        for title in title_words:
+            if title in word_list:
+                result[title] += 1
 
     if next:
         result = count_words(subreddit, word_list, next, result)
