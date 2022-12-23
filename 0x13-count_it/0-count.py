@@ -5,26 +5,31 @@ module which contains count_words function
 import requests
 
 
-def count_words(subreddit, word_list, i=0, n=None, data=None, result=None):
+def count_words(subreddit, word_list, next=None, result=None):
     """
     recursive function that queries the Reddit API, parses the title of all
     hot articles, and prints a sorted count of given keywords
     (case-insensitive, delimited by spaces. Javascript should count
     as javascript, but java should not).
-
     """
 
-    if not data:
-        r = requests.get('https://www.reddit.com/r/' + subreddit + '/hot.json',
+    url = 'https://www.reddit.com/r/' + subreddit + '/hot.json'
+    if not next:
+        r = requests.get(url,
                          headers={'User-agent': 'your bot 0.1'})
-        data = r.json().get('data').get('children')
-        n = len(data)
         result = {}
+    else:
+        url += '?after=' + next
+        r = requests.get(url,
+                         headers={'User-agent': 'your bot 0.1'})
+    r = r.json().get('data')
+    next = r.get('after')
+    hot = r.get('children')
 
-    if i < n:
+    for data in hot:
         for word in word_list:
             word = word.lower()
-            if word in data[i].get('data').get('title').lower():
+            if word in data.get('data').get('title').lower():
                 if not result.get(word):
                     result[word] = 1
                 else:
@@ -32,9 +37,10 @@ def count_words(subreddit, word_list, i=0, n=None, data=None, result=None):
             else:
                 if not result.get(word):
                     result[word] = 0
-        result = count_words(subreddit, word_list, i + 1, n, data, result)
 
-    if i == 0:
+    if next:
+        result = count_words(subreddit, word_list, next, result)
+    else:
         keys = list(result.keys())
         keys.sort()
         new_res = {}
