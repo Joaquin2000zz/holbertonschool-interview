@@ -32,6 +32,8 @@ def count_words(subreddit, word_list, next=None, result=None):
             r = requests.get(url,
                              headers={'User-agent': 'your bot 0.1'},
                              allow_redirects=False)
+            if not r.status_code == 200:
+                return None
         except Exception:
             return
     try:
