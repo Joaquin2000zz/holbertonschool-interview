@@ -3,7 +3,7 @@
 module which contains count_words function
 """
 import requests
-
+import sys
 
 def count_words(subreddit, word_list, next=None, result=None):
     """
@@ -19,6 +19,7 @@ def count_words(subreddit, word_list, next=None, result=None):
                          headers={'User-agent': 'your bot 0.1'},
                          allow_redirects=False)
         result = {word: 0 for word in word_list}
+        sys.setrecursionlimit(1500)
     else:
         url += '?after=' + next
         r = requests.get(url,
