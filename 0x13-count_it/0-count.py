@@ -28,9 +28,12 @@ def count_words(subreddit, word_list, next=None, result=None):
         sys.setrecursionlimit(9999)
     else:
         url += '?after=' + next
-        r = requests.get(url,
-                         headers={'User-agent': 'your bot 0.1'},
-                         allow_redirects=False)
+        try:
+            r = requests.get(url,
+                             headers={'User-agent': 'your bot 0.1'},
+                             allow_redirects=False)
+        except Exception:
+            return
     try:
         r = r.json().get('data')
     except Exception:
