@@ -31,8 +31,9 @@ def count_words(subreddit, word_list, next=None, result=None):
     for data in hot:
         title_words = data.get('data').get('title').lower().split()
         for title in title_words:
-            if title in word_list:
-                result[title] += 1
+            for word in word_list:
+                if title == word:
+                    result[title] += 1
 
     if next:
         result = count_words(subreddit, word_list, next, result)
