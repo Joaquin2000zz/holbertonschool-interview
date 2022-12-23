@@ -24,7 +24,7 @@ def count_words(subreddit, word_list, next=None, result=None):
                 return None
         except Exception:
             return
-        result = {word: 0 for word in word_list}
+        result = {word.lower(): 0 for word in word_list}
         sys.setrecursionlimit(1500)
     else:
         url += '?after=' + next
