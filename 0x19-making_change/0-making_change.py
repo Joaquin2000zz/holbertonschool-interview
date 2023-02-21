@@ -45,11 +45,9 @@ def makeChange(coins, total):
                 times = recChange(greather, total, change)
                 coin += greather * times
                 n += times
-                monedas[greather] += times
             else:
                 to_pop.append(i if coins[i] == greather else j)
                 if change + lower + coin <= total:
-                    monedas[lower] += 1
                     coin += lower
                     n += 1
             if change + coin > total:
