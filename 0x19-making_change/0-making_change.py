@@ -4,6 +4,16 @@ module which contains makeChange function
 """
 
 
+def recChange(coin, total, change):
+    """
+    looks how many times can add the coin to the total change
+    Returns: number of times the coin can be used
+    """
+    if change + coin <= total:
+        return recChange(coin, total, change + coin) + 1
+    return 0
+
+
 def makeChange(coins, total):
     """
     - Return: fewest number of coins needed to meet total
@@ -26,17 +36,29 @@ def makeChange(coins, total):
         if change > total:
             return -1
         prev = change
+        to_pop = []
         for i, _ in enumerate(coins):
             coin = 0
             j = (i + 1) * - 1
-            if change + coins[i] <= total:
-                coin += coins[i]
-            if change + coins[j] + coin <= total:
-                coin += coins[j]
+            greather, lower = max(coins[i], coins[j]), min(coins[i], coins[j])
+            if change + greather <= total:
+                times = recChange(greather, total, change)
+                coin += greather * times
+                n += times
+                monedas[greather] += times
+            else:
+                to_pop.append(i if coins[i] == greather else j)
+                if change + lower + coin <= total:
+                    monedas[lower] += 1
+                    coin += lower
+                    n += 1
             if change + coin > total:
                 return -1
-            n += 1
             change += coin
         if prev == change:
             return -1
+        for pop in to_pop:
+            coins[pop] = 0
+        coins = list(set(coins))
+        coins.pop(coins.index(0))
     return n
