@@ -25,8 +25,10 @@ def makeChange(coins, total):
       of coin in the list
     - Your solution’s runtime will be evaluated in this task
     """
-    if total < 1 or not coins:
+    if total < 1:
         return 0
+    if not coins:
+        return -1
     ncoins, change = 0, 0
     coins.sort(reverse=True)
     for i, _ in enumerate(coins):
