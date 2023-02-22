@@ -25,16 +25,12 @@ def makeChange(coins, total):
       of coin in the list
     - Your solution’s runtime will be evaluated in this task
     """
-    if total < 1:
-        return 0
-    if not coins:
+    if total < 1 or not coins:
         return -1
-    ncoins = 0
-    change = 0
+    ncoins, change = 0, 0
     coins.sort(reverse=True)
     for i, _ in enumerate(coins):
-        coin = 0
-        value = coins[i]
+        coin, value = 0, coins[i]
         if change + value <= total:
             times = recChange(value, total, change)
             coin += value * times
