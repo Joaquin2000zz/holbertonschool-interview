@@ -31,33 +31,13 @@ def makeChange(coins, total):
         return -1
     ncoins = 0
     change = 0
-    prev = 0
-    coins.sort()
-    coins = coins[::-1]
-    while True:
-        if change == total:
-            break
-        if change > total:
-            return -1
-        prev = change
-        for i, _ in enumerate(coins):
-            coin = 0
-            j = (i + 1) * - 1
-            greather = coins[i]
-            lower = coins[j]
-            if change + greather <= total:
-                times = recChange(greather, total, change)
-                coin += greather * times
-                ncoins += times
-            else:
-                if change + lower + coin <= total:
-                    coin += lower
-                    ncoins += 1
-            if change + coin > total:
-                return -1
-            change += coin
-        if prev == change:
-            return -1
-    if ncoins < 1:
-        return -1
-    return ncoins
+    coins.sort(reverse=True)
+    for i, _ in enumerate(coins):
+        coin = 0
+        value = coins[i]
+        if change + value <= total:
+            times = recChange(value, total, change)
+            coin += value * times
+            ncoins += times
+        change += coin
+    return ncoins if ncoins > 0 and change == total else -1
