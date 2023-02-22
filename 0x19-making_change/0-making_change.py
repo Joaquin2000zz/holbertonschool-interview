@@ -36,17 +36,16 @@ def makeChange(coins, total):
         if change > total:
             return -1
         prev = change
-        to_pop = []
         for i, _ in enumerate(coins):
             coin = 0
             j = (i + 1) * - 1
-            greather, lower = max(coins[i], coins[j]), min(coins[i], coins[j])
+            greather = max(coins[i], coins[j])
+            lower = min(coins[i], coins[j])
             if change + greather <= total:
                 times = recChange(greather, total, change)
                 coin += greather * times
                 n += times
             else:
-                to_pop.append(i if coins[i] == greather else j)
                 if change + lower + coin <= total:
                     coin += lower
                     n += 1
@@ -55,8 +54,4 @@ def makeChange(coins, total):
             change += coin
         if prev == change:
             return -1
-        for pop in to_pop:
-            coins[pop] = 0
-        coins = list(set(coins))
-        coins.pop(coins.index(0))
     return n
