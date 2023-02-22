@@ -56,4 +56,6 @@ def makeChange(coins, total):
             change += coin
         if prev == change:
             return -1
+    if n < 1:
+        return -1
     return n
