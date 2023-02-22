@@ -30,6 +30,8 @@ def makeChange(coins, total):
     n = 0
     change = 0
     prev = 0
+    coins.sort()
+    coins = coins[::-1]
     while True:
         if change == total:
             break
@@ -39,8 +41,8 @@ def makeChange(coins, total):
         for i, _ in enumerate(coins):
             coin = 0
             j = (i + 1) * - 1
-            greather = max(coins[i], coins[j])
-            lower = min(coins[i], coins[j])
+            greather = coins[i]
+            lower = coins[j]
             if change + greather <= total:
                 times = recChange(greather, total, change)
                 coin += greather * times
