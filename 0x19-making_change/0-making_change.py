@@ -26,7 +26,7 @@ def makeChange(coins, total):
     - Your solution’s runtime will be evaluated in this task
     """
     if total < 1 or not coins:
-        return -1
+        return 0
     ncoins, change = 0, 0
     coins.sort(reverse=True)
     for i, _ in enumerate(coins):
