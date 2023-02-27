@@ -9,9 +9,14 @@ def recChange(coin, total, change):
     looks how many times can add the coin to the total change
     Returns: number of times the coin can be used
     """
-    if change + coin <= total:
-        return recChange(coin, total, change + coin) + 1
-    return 0
+    i = 1
+    while True:
+        if change + (coin * i) <= total:
+            i += 1
+        else:
+            i -= 1
+            break
+    return i
 
 
 def makeChange(coins, total):
@@ -29,12 +34,10 @@ def makeChange(coins, total):
         return 0
     if not coins:
         return -1
-    ncoins = 0
-    change = 0
+    ncoins, change = 0, 0
     coins.sort(reverse=True)
     for i, _ in enumerate(coins):
-        coin = 0
-        value = coins[i]
+        coin, value = 0, coins[i]
         if change + value <= total:
             times = recChange(value, total, change)
             coin += value * times
