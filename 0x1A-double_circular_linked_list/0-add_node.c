@@ -18,6 +18,8 @@ List *add_node_end(List **list, char *str)
 	new->next = new;
 	new->prev = new;
 	new->str = strdup(str);
+	if (!new->str)
+		return (NULL);
 	if (!(*list))
 	{
 		(*list) = new;
@@ -48,6 +50,8 @@ List *add_node_begin(List **list, char *str)
 	new->next = new;
 	new->prev = new;
 	new->str = strdup(str);
+	if (!new->str)
+		return (NULL);
 	if (!(*list))
 	{
 		*list = new;
