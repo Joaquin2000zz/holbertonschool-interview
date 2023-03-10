@@ -46,10 +46,7 @@ void radix_sort(int *array, size_t size)
     int max = 0, i = 0, place = 1;
 
     if (size == 1)
-    {
-        print_array(array, size);
         return;
-    }
     if (size == 2)
     {
         if (array[0] > array[1])
