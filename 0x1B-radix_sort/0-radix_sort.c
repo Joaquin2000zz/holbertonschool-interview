@@ -43,7 +43,7 @@ void counting_sort(int *array, int size, int place)
  */
 void radix_sort(int *array, size_t size)
 {
-    int max = 0, i = 0, place = 1;
+    int max = 0, i = 0, place = 1, flag = 0;
 
     if (size < 2 || !array)
         return;
@@ -57,7 +57,9 @@ void radix_sort(int *array, size_t size)
         return;
     }
     for (; i < (int)size; i++)
-        max = max < array[i] ? array[i] : max;
+        max = max < array[i] ? array[i] : max, max <= array[i] ? flag++: flag;
+    if (flag >= (int)size)
+        return;
     for (; max / place > 0; place *= 10)
         counting_sort(array, (int)size, place);
 }
