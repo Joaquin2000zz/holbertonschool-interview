@@ -57,7 +57,7 @@ void radix_sort(int *array, size_t size)
         return;
     }
     for (; i < (int)size; i++)
-        max = max < array[i] ? array[i] : max, max <= array[i] ? flag++: flag;
+        max = max < array[i] ? array[i] : max;
     if (flag >= (int)size)
         return;
     for (; max / place > 0; place *= 10)
