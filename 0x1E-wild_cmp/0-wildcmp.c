@@ -1,3 +1,4 @@
+#include "holberton.h"
 /**
  * wildcmp - compares two strings
  * s2 can contain the special character *.
