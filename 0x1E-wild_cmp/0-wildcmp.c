@@ -1,4 +1,3 @@
-#include <stdio.h>
 /**
  * wildcmp - compares two strings
  * s2 can contain the special character *.
