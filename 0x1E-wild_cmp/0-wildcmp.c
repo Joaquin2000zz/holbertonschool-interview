@@ -27,10 +27,8 @@ int wildcmp(char *s1, char *s2)
             {    
                 stop = i + 1;
             }
-        
             for (j = i; (j < stop && j > 0) || (s1[j] && s2[j]); j++)
-            {
-                
+            {   
                 if (s1[j] && s2[j])
                 {
                     if (s1[j + 1] == s2[j + 1])
@@ -43,21 +41,14 @@ int wildcmp(char *s1, char *s2)
                             if (s1[j + 1] == s2[j + 1])
                                 break;
                         }
-
                     }
                     else
                         return (0);
-                if (j > 10)
-                        break;
             }
-            
             i = j;
             continue;
-        if (i > 10)
-            break;
         }
         i++;
-
     }
     if (s2[i])
     {
