@@ -47,7 +47,7 @@ int is_valid_substring(char const *s, char const **words, int nb_words,
     }
 
     /* Check if all words are used exactly once */
-    return words_used == nb_words ? 1 : 0;
+    return (words_used == nb_words ? 1 : 0);
 }
 
 /**
@@ -95,5 +95,5 @@ int *find_substring(char const *s, char const **words, int nb_words, int *n)
     /* Free dynamically allocated memory */
     free(used);
 
-    return result;
+    return (result);
 }
