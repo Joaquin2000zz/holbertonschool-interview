@@ -20,7 +20,8 @@ int is_valid_substring(char const *s, char const **words, int nb_words,
     int words_used = 0;
 
     /* Initialize the used array to 0 */
-    for (i = 0; i < nb_words; i++) {
+    for (i = 0; i < nb_words; i++)
+    {
         used[i] = 0;
     }
 
@@ -29,7 +30,7 @@ int is_valid_substring(char const *s, char const **words, int nb_words,
      */
     for (i = start; i < start + nb_words * word_len; i += word_len)
     {
-        char *word = strndup(s + i, word_len);  /* Extract word from s */
+        char *word = strndup(s + i, word_len); /* Extract word from s */
 
         for (word_idx = 0; word_idx < nb_words; word_idx++)
         {
@@ -41,7 +42,7 @@ int is_valid_substring(char const *s, char const **words, int nb_words,
             }
         }
 
-        free(word);  /* Free dynamically allocated memory */
+        free(word); /* Free dynamically allocated memory */
     }
 
     /* Check if all words are used exactly once */
