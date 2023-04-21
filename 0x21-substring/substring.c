@@ -10,7 +10,7 @@
  * @word_len: The length of each word in the words array.
  * @start: The starting index of the substring in s.
  * @used: An array to keep track of used words.
- * Return 1 if the substring is valid, 0 otherwise.
+ * Return: 1 if the substring is valid, 0 otherwise.
  */
 int is_valid_substring(char const *s, char const **words, int nb_words,
                        int word_len, int start, int *used)
@@ -59,7 +59,7 @@ int is_valid_substring(char const *s, char const **words, int nb_words,
  * @nb_words: The number of elements in the words array.
  * @n: A pointer to store the number of elements in the returned array.
  *
- * Return A dynamically allocated array of indices in s, at which a substring
+ * Return: A dynamically allocated array of indices in s, at which a substring
  *         was found, or NULL if no solution is found. The number of elements
  *         in the returned array is stored in the n parameter.
  */
