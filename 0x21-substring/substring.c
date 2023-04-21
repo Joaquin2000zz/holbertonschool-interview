@@ -1,73 +1,96 @@
 #include "substring.h"
-#include <stdio.h>
 
 /**
- * resize - realloc an array without losing the old content
- * @p: pointer to resize
- * @size: new pointer size
- * Return: resized pointer
+ * is_valid_substring - Checks if a substring in s starting from a given index
+ *                      is valid, i.e., it contains all words in words array
+ *                      exactly once and without any intervening characters.
+ * @s: The input string to check for substring.
+ * @words: The array of words that the substring must contain.
+ * @nb_words: The number of elements in the words array.
+ * @word_len: The length of each word in the words array.
+ * @start: The starting index of the substring in s.
+ * @used: An array to keep track of used words.
+ * Return 1 if the substring is valid, 0 otherwise.
  */
-int *resize(int *p, int size)
+int is_valid_substring(char const *s, char const **words, int nb_words,
+                       int word_len, int start, int *used)
 {
-    int *aux = NULL, i = 0;
+    int i;
+    int word_idx;
+    int words_used = 0;
 
-    if (!p || size < 1)
-        return (NULL);
-    aux = malloc(size * sizeof(int));
-    if (!aux)
-        return (NULL);
-    for (; i < size; i++)
-        aux[i] = p[i];
-    p = realloc(p, sizeof(int) * size);
-    if (!p)
-        return (NULL);
-    for (i = 0; i < size; i++)
-        p[i] = aux[i];
-    free(aux);
-    return p;
-}
+    /* Initialize the used array to 0 */
+    for (i = 0; i < nb_words; i++) {
+        used[i] = 0;
+    }
 
-/**
- * find_substring - finds all the possible substrings containing
- *                  a list of words, within a given string
- * @s: the string to scan
- * @words: array of words all substrings must be a concatenation arrangement of
- * @nb_words: number of elements in the array words
- * @n: address at which to store the number of elements in the returned array
- * Return: int * 
- */
-int *find_substring(char const *s, char const **words, int nb_words, int *n)
-{
-    int i = 0, j = 0, k = 0, b = 0, flag = 0, *p = NULL;
-
-    (*n) = 0;
-    for (; s[i]; i++)
+    /** Iterate through the string s and check if
+     * it contains all words in words array
+     */
+    for (i = start; i < start + nb_words * word_len; i += word_len)
     {
-        for (b = 0; b < nb_words; b++)
+        char *word = strndup(s + i, word_len);  /* Extract word from s */
+
+        for (word_idx = 0; word_idx < nb_words; word_idx++)
         {
-            for (j = 0; words[b][j]; j++)
+            if (used[word_idx] == 0 && strcmp(word, words[word_idx]) == 0)
             {
-                if (s[i + j] != words[b][j])
-                {
-                    flag = 0;
-                    break;
-                }
-                else
-                    flag = 1;
-            }
-            if (flag)
-            {
-                flag = 0, k++, (*n)++;
-                if (!p)
-                    p = malloc(sizeof(int) * k);
-                else
-                    p = resize(p, k);
-                if (!p)
-                    return (NULL);
-                p[k - 1] = i;
+                used[word_idx] = 1;
+                words_used++;
                 break;
             }
         }
+
+        free(word);  /* Free dynamically allocated memory */
     }
-    return !(*n) ? n : p;
+
+    /* Check if all words are used exactly once */
+    return words_used == nb_words ? 1 : 0;
+}
+
+/**
+ * find_substring - Finds all possible substrings containing a list of
+ *                  words within a given string.
+ * @s: The input string to scan.
+ * @words: The array of words that all substrings must be a
+ *         concatenation arrangement of.
+ * @nb_words: The number of elements in the words array.
+ * @n: A pointer to store the number of elements in the returned array.
+ *
+ * Return A dynamically allocated array of indices in s, at which a substring
+ *         was found, or NULL if no solution is found. The number of elements
+ *         in the returned array is stored in the n parameter.
+ */
+int *find_substring(char const *s, char const **words, int nb_words, int *n)
+{
+    int word_len = strlen(words[0]);
+    int s_len = strlen(s);
+    /* Maximum index to check for substring */
+    int max_idx = s_len - nb_words * word_len;
+    int *result = NULL;
+    int result_size = 0;
+    /* Array to keep track of used words */
+    int *used = (int *)calloc(nb_words, sizeof(int));
+
+    // Iterate through the input string s
+    for (int i = 0; i <= max_idx; i++)
+    {
+        if (is_valid_substring(s, words, nb_words, word_len, i, used))
+        {
+            /** If a valid substring is found, append its starting index
+             * to the result array
+             */
+            result_size++;
+            result = (int *)realloc(result, result_size * sizeof(int));
+            result[result_size - 1] = i;
+        }
+    }
+
+    /* Update the number of elements in the returned array */
+    *n = result_size;
+
+    /* Free dynamically allocated memory */
+    free(used);
+
+    return result;
 }
