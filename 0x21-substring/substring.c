@@ -55,8 +55,6 @@ int *find_substring(char const *s, char const **words, int nb_words, int *n)
                 else
                     flag = 1;
             }
-            if (b == nb_words - 1)
-                continue;
             if (flag)
             {
                 flag = 0, k++, (*n)++;
