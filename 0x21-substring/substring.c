@@ -25,7 +25,8 @@ int is_valid_substring(char const *s, char const **words, int nb_words,
         used[i] = 0;
     }
 
-    /** Iterate through the string s and check if
+    /**
+     * Iterate through the string s and check if
      * it contains all words in words array
      */
     for (i = start; i < start + nb_words * word_len; i += word_len)
@@ -73,12 +74,13 @@ int *find_substring(char const *s, char const **words, int nb_words, int *n)
     /* Array to keep track of used words */
     int *used = (int *)calloc(nb_words, sizeof(int));
 
-    // Iterate through the input string s
+    /* Iterate through the input string s */
     for (int i = 0; i <= max_idx; i++)
     {
         if (is_valid_substring(s, words, nb_words, word_len, i, used))
         {
-            /** If a valid substring is found, append its starting index
+            /**
+             * If a valid substring is found, append its starting index
              * to the result array
              */
             result_size++;
