@@ -15,39 +15,28 @@
 int is_valid_substring(char const *s, char const **words, int nb_words,
                        int word_len, int start, int *used)
 {
-    int i;
-    int word_idx;
-    int words_used = 0;
+	int i, w_idx, words_used = 0;
 
-    /* Initialize the used array to 0 */
-    for (i = 0; i < nb_words; i++)
-    {
-        used[i] = 0;
-    }
+	for (i = 0; i < nb_words; i++)
+        	used[i] = 0;
+	for (i = start; i < start + nb_words * word_len; i += word_len)
+	{
+		char *word = strndup(s + i, word_len);
+		for (w_idx = 0; w_idx < nb_words; w_idx++)
+		{
+			if (used[w_idx] == 0 && strcmp(word, words[w_idx]) == 0)
+			{
+				used[w_idx] = 1;
+				words_used++;
+				break;
+			}
+		}
 
-    /**
-     * Iterate through the string s and check if
-     * it contains all words in words array
-     */
-    for (i = start; i < start + nb_words * word_len; i += word_len)
-    {
-        char *word = strndup(s + i, word_len); /* Extract word from s */
+		free(word); /* Free dynamically allocated memory */
+	}
 
-        for (word_idx = 0; word_idx < nb_words; word_idx++)
-        {
-            if (used[word_idx] == 0 && strcmp(word, words[word_idx]) == 0)
-            {
-                used[word_idx] = 1;
-                words_used++;
-                break;
-            }
-        }
-
-        free(word); /* Free dynamically allocated memory */
-    }
-
-    /* Check if all words are used exactly once */
-    return (words_used == nb_words ? 1 : 0);
+	/* Check if all words are used exactly once */
+	return (words_used == nb_words ? 1 : 0);
 }
 
 /**
@@ -65,35 +54,29 @@ int is_valid_substring(char const *s, char const **words, int nb_words,
  */
 int *find_substring(char const *s, char const **words, int nb_words, int *n)
 {
-    int word_len = strlen(words[0]);
-    int s_len = strlen(s);
-    /* Maximum index to check for substring */
-    int max_idx = s_len - nb_words * word_len;
-    int *result = NULL;
-    int result_size = 0;
-    /* Array to keep track of used words */
-    int *used = (int *)calloc(nb_words, sizeof(int));
+	int word_len = 0, s_len = 0, max_idx = 0, i = 0;
+	int *res = NULL, res_size = 0, *used = NULL;
 
-    /* Iterate through the input string s */
-    for (int i = 0; i <= max_idx; i++)
-    {
-        if (is_valid_substring(s, words, nb_words, word_len, i, used))
-        {
-            /**
-             * If a valid substring is found, append its starting index
-             * to the result array
-             */
-            result_size++;
-            result = (int *)realloc(result, result_size * sizeof(int));
-            result[result_size - 1] = i;
-        }
-    }
+	if (!s || !words[0])
+		return (NULL);
+	word_len = strlen(words[0]);
+	s_len = strlen(s);
+	used = (int *)calloc(nb_words, sizeof(int));
+	max_idx = s_len - nb_words * word_len;
+	for (i = 0; i <= max_idx; i++)
+	{
+		if (is_valid_substring(s, words, nb_words,
+				       word_len, i, used))
+		{
+			res_size++;
+			res = (int *)realloc(res, res_size * sizeof(int));
+			res[res_size - 1] = i;
+		}
+	}
 
-    /* Update the number of elements in the returned array */
-    *n = result_size;
+	*n = res_size;
 
-    /* Free dynamically allocated memory */
-    free(used);
+	free(used);
 
-    return (result);
+	return (res);
 }
