@@ -3,6 +3,7 @@
 module which contains isWinner function
 """
 
+
 def isWinner(x, nums):
     """
     Maria and Ben are playing a game. Given a set of consecutive integers
@@ -13,7 +14,7 @@ def isWinner(x, nums):
     They play x rounds of the game, where n may be different for each round.
     Assuming Maria always goes first and both players play optimally,
     determine who the winner of each game is.
-    
+
     @x:  number of rounds
     @nums: is an array of n
     """
