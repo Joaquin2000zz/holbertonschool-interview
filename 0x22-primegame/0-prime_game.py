@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-
+"""
+module which contains isWinner function
+"""
 
 def isWinner(x, nums):
     """
