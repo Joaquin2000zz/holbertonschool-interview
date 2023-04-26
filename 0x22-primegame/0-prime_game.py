@@ -18,7 +18,7 @@ def isWinner(x, nums):
     @x:  number of rounds
     @nums: is an array of n
     """
-    if not x or not nums or False in [isinstance(x, int) for x in nums]:
+    if x < 1 or not nums or False in [isinstance(x, int) for x in nums]:
         return None
 
     def is_prime(num):
